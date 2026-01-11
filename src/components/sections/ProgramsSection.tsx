@@ -3,11 +3,10 @@
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { programs } from '@/data/programs';
-import { Clock, MapPin, ArrowRight, Sparkles } from 'lucide-react';
+import { Clock, MapPin, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export function ProgramsSection() {
   const t = useTranslations('programs');
@@ -21,132 +20,103 @@ export function ProgramsSection() {
   };
 
   return (
-    <section id="programs" className="py-32 relative">
+    <section id="programs" className="py-32 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-1/2 left-0 w-full h-[500px] bg-gradient-to-r from-violet-500/10 via-transparent to-teal-500/10 blur-[100px] pointer-events-none" />
+
       <Container>
-        <ScrollReveal>
-          <div className="text-center mb-20">
-            <motion.div
-              className="inline-block mb-4"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-700 text-sm font-medium">
-                <Sparkles size={14} />
-                Наши программы
-              </span>
-            </motion.div>
-            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-br from-neutral-900 via-primary-800 to-secondary-700 bg-clip-text text-transparent mb-6">
-              {t('title')}
-            </h2>
-            <p className="text-2xl text-neutral-600 max-w-3xl mx-auto font-light">
+        <div className="text-center mb-20 relative z-10">
+          <motion.div
+            className="inline-block mb-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full glass-panel border-violet-500/30 text-violet-300 text-sm font-medium">
+              <Sparkles size={14} className="text-gold-400" />
               {t('subtitle')}
-            </p>
-          </div>
-        </ScrollReveal>
+            </span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-6xl font-serif font-bold text-gradient-cosmic mb-6"
+          >
+            {t('title')}
+          </motion.h2>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {programs.map((program, index) => (
-            <ScrollReveal key={program.id} delay={index * 0.15} scale>
-              <motion.div
-                className="group relative h-full"
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Glass Card */}
-                <div className="relative h-full backdrop-blur-xl bg-white/50 rounded-[2rem] p-8 border border-white/60 shadow-2xl overflow-hidden">
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-100/30 via-transparent to-secondary-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <motion.div
+              key={program.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="group relative h-full"
+            >
+              {/* Magic Glow */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-teal-400 rounded-[2.1rem] blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
 
-                  {/* Content */}
-                  <div className="relative space-y-6">
-                    {/* Format Badge */}
-                    <div className="flex items-center justify-between">
-                      <span className="px-4 py-2 rounded-full bg-gradient-to-r from-primary-500/90 to-secondary-500/90 text-white text-xs font-medium backdrop-blur-sm">
-                        {program.subtitle[locale]}
-                      </span>
-                      <motion.div
-                        className="w-12 h-12 rounded-full backdrop-blur-md bg-white/80 flex items-center justify-center shadow-lg"
-                        whileHover={{ rotate: 90, scale: 1.1 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight className="text-primary-600" size={20} />
-                      </motion.div>
-                    </div>
+              {/* Glass Card */}
+              <div className="relative h-full glass-card rounded-[2rem] p-8 overflow-hidden flex flex-col">
 
-                    {/* Title */}
-                    <h3 className="font-serif text-3xl font-bold text-neutral-900 leading-tight">
-                      {program.title[locale]}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-neutral-700 leading-relaxed">
-                      {program.description[locale]}
-                    </p>
-
-                    {/* Meta Info */}
-                    <div className="flex flex-col gap-3 pt-4">
-                      <div className="flex items-center gap-3 px-4 py-3 rounded-2xl backdrop-blur-md bg-white/60 border border-white/80">
-                        <Clock size={18} className="text-primary-600" />
-                        <span className="text-sm font-medium text-neutral-700">
-                          {program.duration[locale]}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3 px-4 py-3 rounded-2xl backdrop-blur-md bg-white/60 border border-white/80">
-                        <MapPin size={18} className="text-primary-600" />
-                        <span className="text-sm font-medium text-neutral-700">
-                          {program.format === 'online'
-                            ? t('online.format')
-                            : program.format === 'offline'
-                            ? t('offline.format')
-                            : t('individual.format')}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Highlights */}
-                    <div className="space-y-3 pt-4">
-                      {program.highlights[locale].slice(0, 3).map((highlight, i) => (
-                        <motion.div
-                          key={i}
-                          className="flex items-start gap-3"
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          viewport={{ once: true }}
-                        >
-                          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <span className="text-sm text-neutral-700">{highlight}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    {/* CTA */}
-                    <div className="pt-6 space-y-3">
-                      {program.price && (
-                        <div className="text-center py-3 px-4 rounded-2xl backdrop-blur-md bg-gradient-to-r from-primary-50 to-secondary-50 border border-white/60">
-                          <p className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                            {program.price[locale]}
-                          </p>
-                        </div>
-                      )}
-                      <Button
-                        size="lg"
-                        className="w-full shadow-xl hover:shadow-2xl"
-                        onClick={() => handleRegister(program.id)}
-                      >
-                        {t('register')}
-                      </Button>
-                    </div>
+                {/* Format Badge */}
+                <div className="flex items-center justify-between mb-8">
+                  <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-teal-300 text-xs font-medium uppercase tracking-wider">
+                    {program.subtitle[locale]}
+                  </span>
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-violet-500 transition-colors duration-300">
+                    <ArrowRight className="text-white w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                   </div>
                 </div>
 
-                {/* 3D Depth Shadow */}
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-200/20 to-secondary-200/20 rounded-[2rem] blur-2xl transform translate-y-4 group-hover:translate-y-6 transition-transform duration-300" />
-              </motion.div>
-            </ScrollReveal>
+                {/* Content */}
+                <div className="flex-grow">
+                  <h3 className="font-serif text-3xl font-bold text-white mb-4 group-hover:text-violet-300 transition-colors">
+                    {program.title[locale]}
+                  </h3>
+
+                  <p className="text-muted-foreground leading-relaxed mb-6">
+                    {program.description[locale]}
+                  </p>
+
+                  {/* Highlights */}
+                  <ul className="space-y-3 mb-8">
+                    {program.highlights[locale].slice(0, 3).map((highlight, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                        <CheckCircle2 className="w-5 h-5 text-teal-400 flex-shrink-0" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Footer Info */}
+                <div className="mt-auto pt-6 border-t border-white/5 space-y-4">
+                  <div className="flex items-center justify-between text-sm text-gray-400">
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} className="text-violet-400" />
+                      <span>{program.duration[locale]}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin size={16} className="text-teal-400" />
+                      <span>{program.format === 'online' ? t('online.format') : program.format === 'offline' ? t('offline.format') : t('individual.format')}</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => handleRegister(program.id)}
+                    className="w-full bg-white/10 hover:bg-white/20 text-white border-none py-6 text-lg group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-indigo-600 transition-all duration-300"
+                  >
+                    {t('register')}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </Container>

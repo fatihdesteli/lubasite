@@ -1,168 +1,152 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm & Inviting Color Palette */
-  --color-primary-50: #fff5e6;
-  --color-primary-100: #ffe5b8;
-  --color-primary-200: #ffd68a;
-  --color-primary-300: #ffc65c;
-  --color-primary-400: #ffb72e;
-  --color-primary-500: #f39c12; /* Main Primary */
-  --color-primary-600: #e67e22; /* Burnt Orange */
-  --color-primary-700: #d35400;
-  --color-primary-800: #a04000;
-  --color-primary-900: #6e2c00;
-
-  --color-secondary-50: #fff9fc;
-  --color-secondary-100: #ffe5f3;
-  --color-secondary-200: #ffd1e9;
-  --color-secondary-300: #ffbde0;
-  --color-secondary-400: #ffa9d6;
-  --color-secondary-500: #f8b4d8; /* Soft Pink */
-  --color-secondary-600: #f096c4;
-  --color-secondary-700: #e878b0;
-  --color-secondary-800: #d45a9c;
-  --color-secondary-900: #b83c7e;
-
-  --color-neutral-50: #fefefe;
-  --color-neutral-100: #faf3e0; /* Cream */
-  --color-neutral-200: #f5e6d3; /* Beige */
-  --color-neutral-300: #e8d4b8;
-  --color-neutral-400: #d9c19e;
-  --color-neutral-500: #caaf84;
-  --color-neutral-600: #b89968;
-  --color-neutral-700: #9d8357;
-  --color-neutral-800: #7a6544;
-  --color-neutral-900: #574731;
-
-  --color-accent-50: #f3e5f5;
-  --color-accent-100: #e1bee7;
-  --color-accent-200: #ce93d8;
-  --color-accent-300: #ba68c8;
-  --color-accent-400: #ab47bc;
-  --color-accent-500: #9c27b0; /* Deep Purple */
-  --color-accent-600: #8e24aa;
-  --color-accent-700: #7b1fa2;
-  --color-accent-800: #6a1b9a;
-  --color-accent-900: #4a148c;
-
-  --color-gold-50: #fffbf0;
-  --color-gold-100: #fef3c7;
-  --color-gold-200: #fde68a;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b; /* Gold */
-  --color-gold-600: #d97706;
-  --color-gold-700: #b45309;
-  --color-gold-800: #92400e;
-  --color-gold-900: #78350f;
+  /* Cosmic/Ethereal Premium Palette */
+  
+  /* Deep Void / Backgrounds */
+  --color-void-950: #0a0514; /* Deepest Purple/Black */
+  --color-void-900: #130a24;
+  --color-void-800: #2a1647;
+  
+  /* Cosmic Violet */
+  --color-violet-500: #8b5cf6;
+  --color-violet-400: #a78bfa;
+  --color-violet-300: #c4b5fd;
+  
+  /* Ocean Teal / Ethereal Cyan */
+  --color-teal-500: #14b8a6;
+  --color-teal-400: #2dd4bf;
+  --color-teal-300: #5eead4;
+  
+  /* Warm Gold / Accent */
+  --color-gold-500: #eab308;
+  --color-gold-400: #facc15;
+  --color-gold-300: #fde047;
+  
+  /* Rose / Love */
+  --color-rose-500: #f43f5e;
+  --color-rose-400: #fb7185;
+  --color-rose-300: #fda4af;
 
   /* Semantic Colors */
-  --background: #ffffff;
-  --foreground: #574731;
-  --muted: #f5e6d3;
-  --muted-foreground: #9d8357;
-  --border: #e8d4b8;
-  --input: #f5e6d3;
-  --ring: #f39c12;
+  --background: #0a0514;
+  --foreground: #f8fafc;
+  
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #94a3b8;
+  
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.05); /* Glass effect input */
+  
+  --primary: #c4b5fd; /* Soft Violet as primary text highlight */
+  --secondary: #2dd4bf; /* Teal as secondary highlight */
+  --accent: #facc15; /* Gold for key calls to action */
+  
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
 }
 
 @theme inline {
-  /* Colors */
+  /* Colors mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --color-primary-*: initial;
-  --color-secondary-*: initial;
-  --color-neutral-*: initial;
-  --color-accent-*: initial;
+  
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  
+  --color-void-*: initial;
+  --color-violet-*: initial;
+  --color-teal-*: initial;
   --color-gold-*: initial;
+  --color-rose-*: initial;
 
-  /* Typography - will be configured in layout.tsx with next/font */
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-serif: ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, monospace;
+  /* Fonts */
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
 
-  /* Animation Timing Functions */
-  --ease-smooth: cubic-bezier(0.6, 0.05, 0.01, 0.9);
-  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --ease-elegant: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Custom Transitions */
-  --transition-smooth: 0.3s var(--ease-elegant);
-  --transition-fast: 0.15s var(--ease-elegant);
-  --transition-slow: 0.5s var(--ease-smooth);
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(243, 156, 18, 0.3);
-
-  /* Spacing - Premium generous spacing */
-  --section-padding-mobile: 4rem;
-  --section-padding-desktop: 6rem;
-  --container-padding: 1.5rem;
-  --max-width: 1280px;
+  /* Animation */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  selection-background-color: var(--color-violet-500);
+  selection-color: white;
 }
 
-/* Smooth scrolling will be handled by Lenis */
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 6px -1px cubic-bezier(0, 0, 0, 0.2), 0 2px 4px -2px cubic-bezier(0, 0, 0, 0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s var(--ease-fluid);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px cubic-bezier(0, 0, 0, 0.4), 0 8px 10px -6px cubic-bezier(0, 0, 0, 0.4);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(to right, #facc15, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-cosmic {
+  background: linear-gradient(to right, #c4b5fd, #a78bfa, #2dd4bf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Lenis Scroll */
 html.lenis {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .lenis.lenis-stopped {
   overflow: hidden;
 }
-
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
 }
