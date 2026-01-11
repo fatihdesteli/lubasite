@@ -11,7 +11,7 @@ export function ContactSection() {
   const t = useTranslations('contact');
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-white">
+    <section id="contact" className="py-20 md:py-32 relative">
       <Container>
         <ScrollReveal>
           <div className="text-center mb-16">

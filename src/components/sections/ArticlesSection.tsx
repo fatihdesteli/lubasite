@@ -18,7 +18,7 @@ export function ArticlesSection() {
   const [selectedArticle, setSelectedArticle] = useState<typeof articles[0] | null>(null);
 
   return (
-    <section id="articles" className="py-20 md:py-32 bg-gradient-to-br from-neutral-50 to-primary-50/20">
+    <section id="articles" className="py-20 md:py-32 relative">
       <Container>
         <ScrollReveal>
           <div className="text-center mb-16">

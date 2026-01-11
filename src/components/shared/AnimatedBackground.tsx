@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const AnimatedBackground = () => {
@@ -68,7 +68,7 @@ export const AnimatedBackground = () => {
 
       {/* 4. Mouse-Responsive Particles */}
       <div className="absolute inset-0">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(80)].map((_, i) => (
           <Particle key={i} mouseX={mouseX} mouseY={mouseY} />
         ))}
       </div>
@@ -79,8 +79,8 @@ export const AnimatedBackground = () => {
 const Particle = ({ mouseX, mouseY }: { mouseX: any; mouseY: any }) => {
   const [initialX] = useState(Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000));
   const [initialY] = useState(Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000));
-  const size = Math.random() * 2 + 1;
-  const duration = Math.random() * 20 + 10;
+  const size = Math.random() * 3 + 2; // Larger snowflakes (2-5px)
+  const duration = Math.random() * 15 + 10; // Slightly faster fall
 
   // Create a slight parallax effect based on mouse position
   const x = useMotionValue(initialX);
@@ -92,7 +92,7 @@ const Particle = ({ mouseX, mouseY }: { mouseX: any; mouseY: any }) => {
 
   return (
     <motion.div
-      className="absolute rounded-full bg-white/40"
+      className="absolute rounded-full bg-white/60"
       style={{
         width: size,
         height: size,
@@ -101,7 +101,7 @@ const Particle = ({ mouseX, mouseY }: { mouseX: any; mouseY: any }) => {
       }}
       animate={{
         y: [initialY, initialY - 100, initialY],
-        opacity: [0.2, 0.8, 0.2],
+        opacity: [0.2, 0.9, 0.2],
       }}
       transition={{
         duration: duration,
