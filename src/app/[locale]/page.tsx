@@ -6,10 +6,12 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { ArticlesSection } from '@/components/sections/ArticlesSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/shared/Footer';
+import { AnimatedBackground } from '@/components/shared/AnimatedBackground';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
       <Header />
       <main>
         <HeroSection />
