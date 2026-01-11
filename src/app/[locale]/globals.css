@@ -100,12 +100,14 @@
 }
 
 body {
-  background: transparent;
+  background: #0a0514;
+  /* Deep Void to prevent white background */
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
   selection-background-color: var(--color-violet-500);
   selection-color: white;
+  min-height: 100vh;
 }
 
 /* Glassmorphism Utilities */
