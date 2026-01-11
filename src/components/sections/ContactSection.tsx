@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { ScrollReveal } from '@/components/animations/ScrollReveal';
 import { Container } from '@/components/ui/Container';
 import { ContactForm } from '@/components/forms/ContactForm';
@@ -9,6 +9,7 @@ import { Mail, Phone, Instagram, Send, Youtube } from 'lucide-react';
 
 export function ContactSection() {
   const t = useTranslations('contact');
+  const locale = useLocale();
 
   return (
     <section id="contact" className="py-20 md:py-32 relative">
@@ -90,10 +91,12 @@ export function ContactSection() {
               {/* Optional: Map or additional info */}
               <div className="mt-12 p-6 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl">
                 <p className="text-neutral-700 leading-relaxed italic">
-                  "Каждое путешествие к себе начинается с первого шага. Свяжитесь со мной, и мы начнем этот путь вместе."
+                  "{locale === 'ru'
+                    ? "Каждое путешествие к себе начинается с первого шага. Свяжитесь со мной, и мы начнем этот путь вместе."
+                    : "Every journey to oneself begins with a first step. Contact me, and we will start this path together."}"
                 </p>
                 <p className="mt-2 font-medium text-neutral-900">
-                  — {siteConfig.coach.name}
+                  — {locale === 'ru' ? siteConfig.coach.name : siteConfig.coach.nameEn}
                 </p>
               </div>
             </div>

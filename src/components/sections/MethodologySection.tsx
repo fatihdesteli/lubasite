@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import { siteConfig } from "@/data/site-config";
 import { Sparkles, Brain, Heart, Zap } from "lucide-react";
 
@@ -12,7 +13,9 @@ const icons = {
 };
 
 export const MethodologySection = () => {
-  // @ts-ignore - Temporary ignore until data is added
+  // @ts-ignore
+  const locale = useLocale() as 'ru' | 'en';
+  // @ts-ignore
   const steps = siteConfig.methodology?.steps || [];
 
   return (
@@ -25,14 +28,14 @@ export const MethodologySection = () => {
 
       <div className="container mx-auto px-6">
         <div className="text-center mb-20 max-w-2xl mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-serif font-bold mb-6 text-gradient-cosmic"
           >
             {/* @ts-ignore */}
-            {siteConfig.methodology?.title?.ru || "Наша Методика"}
+            {siteConfig.methodology?.title?.[locale] || "Наша Методика"}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -42,15 +45,15 @@ export const MethodologySection = () => {
             className="text-muted-foreground text-lg leading-relaxed"
           >
             {/* @ts-ignore */}
-            {siteConfig.methodology?.description?.ru || "Уникальный подход к раскрытию вашего потенциала"}
+            {siteConfig.methodology?.description?.[locale] || "Уникальный подход к раскрытию вашего потенциала"}
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           {steps.map((step: any, index: number) => {
-             // @ts-ignore
+            // @ts-ignore
             const Icon = icons[step.icon as keyof typeof icons] || Sparkles;
-            
+
             return (
               <motion.div
                 key={index}
@@ -64,18 +67,18 @@ export const MethodologySection = () => {
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500/20 to-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-7 h-7 text-white" />
                   </div>
-                  
+
                   <h3 className="text-xl font-bold mb-4 text-white group-hover:text-teal-300 transition-colors">
-                    {step.title.ru}
+                    {step.title[locale]}
                   </h3>
-                  
+
                   <p className="text-muted-foreground leading-relaxed">
-                    {step.description.ru}
+                    {step.description[locale]}
                   </p>
 
                   <div className="absolute -z-10 inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                 </div>
-                
+
                 {/* Connector Line for Desktop */}
                 {index < steps.length - 1 && (
                   <div className="hidden lg:block absolute top-12 left-[calc(100%-2rem)] w-[calc(100%+4rem)] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent -z-20 transform translate-x-4" />
