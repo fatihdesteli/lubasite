@@ -30,6 +30,8 @@ export const siteConfig = {
   video: {
     src: '/videos/intro.mp4',
     poster: '/videos/intro-poster.jpg',
+    // 'portrait' (вертикальное, 9:16) или 'landscape' (16:9)
+    orientation: 'portrait' as 'portrait' | 'landscape',
     title: { ru: 'Видео-знакомство', en: 'Video introduction' },
     description: {
       ru: 'Несколько слов обо мне и о том, как мы будем работать.',

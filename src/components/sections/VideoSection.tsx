@@ -21,10 +21,11 @@ export function VideoSection() {
   if (!video.src) return null;
 
   const embedUrl = getEmbedUrl(video.src);
+  const isPortrait = video.orientation === 'portrait';
 
   return (
     <section id="video" className="section-pad relative overflow-hidden">
-      <Container className="max-w-4xl">
+      <Container className={isPortrait ? 'max-w-2xl' : 'max-w-4xl'}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,9 +48,14 @@ export function VideoSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="glass gradient-border overflow-hidden rounded-3xl p-2"
+          className="glass gradient-border mx-auto overflow-hidden rounded-3xl p-2"
+          style={isPortrait ? { maxWidth: 'min(100%, 26rem)' } : undefined}
         >
-          <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black">
+          <div
+            className={`w-full overflow-hidden rounded-2xl bg-black ${
+              isPortrait ? 'aspect-[9/16]' : 'aspect-video'
+            }`}
+          >
             {isFile(video.src) ? (
               <video
                 className="h-full w-full"
