@@ -28,8 +28,8 @@ export const siteConfig = {
   // либо ссылка на Vimeo/YouTube (встраивается через iframe).
   // poster — превью-картинка (необязательно).
   video: {
-    src: '',
-    poster: '',
+    src: '/videos/intro.mp4',
+    poster: '/videos/intro-poster.jpg',
     title: { ru: 'Видео-знакомство', en: 'Video introduction' },
     description: {
       ru: 'Несколько слов обо мне и о том, как мы будем работать.',
