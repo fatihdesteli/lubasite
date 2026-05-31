@@ -1,93 +1,60 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useLocale } from "next-intl";
-import { siteConfig } from "@/data/site-config";
-import { Sparkles, Brain, Heart, Zap } from "lucide-react";
+import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
+import { Container } from '@/components/ui/Container';
+import { siteConfig } from '@/data/site-config';
+import { Sparkles, Brain, Heart, Zap } from 'lucide-react';
 
-const icons = {
-  Sparkles,
-  Brain,
-  Heart,
-  Zap,
-};
+const iconMap = { Sparkles, Brain, Heart, Zap };
 
-export const MethodologySection = () => {
-  // @ts-ignore
-  const locale = useLocale() as 'ru' | 'en';
-  // @ts-ignore
-  const steps = siteConfig.methodology?.steps || [];
+export function MethodologySection() {
+  const t = useTranslations('methodology');
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Abstract Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-violet-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px]" />
-      </div>
+    <section id="methodology" className="section-pad relative overflow-hidden">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-14 max-w-3xl text-center sm:mb-20"
+        >
+          <span className="eyebrow mb-4">{t('subtitle')}</span>
+          <h2 className="font-display mb-5 text-4xl font-bold tracking-tight sm:text-5xl">
+            <span className="gradient-text">{siteConfig.methodology.title.ru}</span>
+          </h2>
+          <p className="text-balance text-lg leading-relaxed text-muted">
+            {siteConfig.methodology.description.ru}
+          </p>
+        </motion.div>
 
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-20 max-w-2xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-serif font-bold mb-6 text-gradient-cosmic"
-          >
-            {/* @ts-ignore */}
-            {siteConfig.methodology?.title?.[locale] || "Наша Методика"}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground text-lg leading-relaxed"
-          >
-            {/* @ts-ignore */}
-            {siteConfig.methodology?.description?.[locale] || "Уникальный подход к раскрытию вашего потенциала"}
-          </motion.p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          {steps.map((step: any, index: number) => {
-            // @ts-ignore
-            const Icon = icons[step.icon as keyof typeof icons] || Sparkles;
-
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {siteConfig.methodology.steps.map((step, index) => {
+            const Icon = iconMap[step.icon as keyof typeof iconMap];
             return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative"
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="group glass glass-hover gradient-border relative flex flex-col rounded-3xl p-7"
               >
-                <div className="glass-card p-8 rounded-2xl h-full border border-white/5 hover:border-white/20 group">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500/20 to-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-7 h-7 text-white" />
-                  </div>
-
-                  <h3 className="text-xl font-bold mb-4 text-white group-hover:text-teal-300 transition-colors">
-                    {step.title[locale]}
-                  </h3>
-
-                  <p className="text-muted-foreground leading-relaxed">
-                    {step.description[locale]}
-                  </p>
-
-                  <div className="absolute -z-10 inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                <span className="font-display absolute right-6 top-5 text-5xl font-bold text-white/5 transition-colors group-hover:text-primary/20">
+                  0{index + 1}
+                </span>
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <Icon className="h-7 w-7 text-white" />
                 </div>
-
-                {/* Connector Line for Desktop */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 left-[calc(100%-2rem)] w-[calc(100%+4rem)] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent -z-20 transform translate-x-4" />
-                )}
+                <h3 className="font-display mb-2 text-xl font-semibold">{step.title.ru}</h3>
+                <p className="text-sm leading-relaxed text-muted">{step.description.ru}</p>
               </motion.div>
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
-};
+}

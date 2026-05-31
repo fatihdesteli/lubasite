@@ -1,69 +1,35 @@
 {
-  "site": {
-    "title": "Path to Self",
-    "tagline": "your true path to yourself begins with the courage to sound",
-    "description": "Professional personal development coaching with Lyubov Yurievna Samoilenko"
-  },
   "nav": {
     "home": "Home",
+    "methodology": "Method",
     "programs": "Programs",
-    "videos": "Videos",
-    "testimonials": "Testimonials",
-    "articles": "Articles",
+    "faq": "FAQ",
     "contact": "Contact"
   },
   "hero": {
-    "coach": "Lyubov Yurievna Samoilenko",
-    "coachTitle": "Personal Development Coach",
-    "cta": "Learn More",
-    "scrollDown": "Scroll Down"
+    "tagline": "your true path to yourself begins with the courage to sound",
+    "cta": "Choose a program",
+    "scroll": "Scroll down"
+  },
+  "methodology": {
+    "subtitle": "My approach"
   },
   "programs": {
-    "title": "Programs",
-    "subtitle": "Find your path to yourself",
-    "online": {
-      "title": "Sound! Manifest! Be!",
-      "subtitle": "Online Course",
-      "description": "Comprehensive program to unlock your true voice and gain confidence in communication",
-      "duration": "8 weeks",
-      "format": "Online"
-    },
-    "offline": {
-      "title": "The Art of Being Yourself Through the Art of Speaking",
-      "subtitle": "Offline Course",
-      "description": "Intensive course for deep transformation through working with speech and self-expression",
-      "duration": "6 sessions",
-      "format": "In-person"
-    },
-    "individual": {
-      "title": "Individual Sessions",
-      "subtitle": "Personal Coaching",
-      "description": "Personal sessions to achieve your unique personal development goals",
-      "duration": "By arrangement",
-      "format": "Online/In-person"
-    },
+    "subtitle": "Programs",
+    "title": "Find your path to yourself",
+    "description": "Choose the format that suits you best — personal sessions, an intimate group or an online course.",
     "learnMore": "Learn More",
-    "register": "Register"
-  },
-  "videos": {
-    "title": "Videos",
-    "subtitle": "Reclaim your right to be heard"
-  },
-  "testimonials": {
-    "title": "Testimonials",
-    "subtitle": "The beauty of speech is honesty with yourself",
-    "watchMore": "Watch More"
-  },
-  "articles": {
-    "title": "Articles",
-    "subtitle": "Useful materials on personal development",
-    "readMore": "Read More",
-    "readingTime": "min read",
-    "publishedOn": "Published on"
+    "register": "Register",
+    "formats": {
+      "online": "online",
+      "offline": "in-person",
+      "individual": "in-person/online"
+    }
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Get in touch with me",
+    "subtitle": "Contact",
+    "title": "Get in touch with me",
+    "description": "Have questions? Write to me — I will reply personally and help you choose your path.",
     "form": {
       "name": "Your Name",
       "email": "Email",
@@ -73,35 +39,23 @@
       "sending": "Sending...",
       "success": "Thank you! Your message has been sent.",
       "error": "An error occurred. Please try again."
-    },
-    "or": "or write to me:",
-    "followMe": "Follow me:"
+    }
   },
-  "registration": {
-    "title": "Program Registration",
-    "selectProgram": "Select Program",
-    "preferredDates": "Preferred Dates",
-    "submit": "Register",
-    "success": "Thank you for registering! I will contact you soon.",
-    "error": "An error occurred. Please try again."
+  "social": {
+    "follow": "Follow me",
+    "subtitle": "Follow me and reach out directly"
   },
   "footer": {
-    "copyright": "© 2025 Path to Self. All rights reserved.",
-    "madeWith": "Made with love"
+    "rights": "All rights reserved."
   },
   "common": {
     "close": "Close",
-    "loading": "Loading...",
-    "error": "Error",
-    "tryAgain": "Try Again",
-    "readMore": "Read More",
-    "watchVideo": "Watch Video",
-    "play": "Play"
+    "loading": "Loading..."
   },
   "validation": {
     "required": "This field is required",
     "email": "Please enter a valid email",
-    "minLength": "Minimum {{count}} characters",
+    "minLength": "Minimum {count} characters",
     "phone": "Please enter a valid phone number"
   }
 }

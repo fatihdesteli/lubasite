@@ -1,72 +1,72 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { useLocale } from "next-intl";
-import { siteConfig } from "@/data/site-config";
-import { Plus, Minus } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Container } from '@/components/ui/Container';
+import { siteConfig } from '@/data/site-config';
+import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
-export const FAQSection = () => {
-    // @ts-ignore
-    const faqs = siteConfig.faq?.items || [];
-    const locale = useLocale() as 'ru' | 'en';
-    const [openIndex, setOpenIndex] = useState<number | null>(0);
+export function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-    return (
-        <section className="py-24 relative">
-            <div className="container mx-auto px-6 max-w-4xl">
-                <div className="text-center mb-16">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-4xl md:text-5xl font-serif font-bold mb-6 text-gradient-gold"
+  return (
+    <section id="faq" className="section-pad relative overflow-hidden">
+      <Container className="max-w-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center sm:mb-16"
+        >
+          <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+            <span className="gradient-text">{siteConfig.faq.title.ru}</span>
+          </h2>
+        </motion.div>
+
+        <div className="space-y-4">
+          {siteConfig.faq.items.map((item, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className={`glass overflow-hidden rounded-2xl transition-colors ${
+                  isOpen ? 'border-primary/40' : ''
+                }`}
+              >
+                <button
+                  className="flex w-full items-center justify-between gap-4 p-6 text-left"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                >
+                  <span className="font-medium">{item.question.ru}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 flex-shrink-0 text-primary transition-transform duration-300 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
                     >
-                        {/* @ts-ignore */}
-                        {siteConfig.faq?.title?.[locale] || "Частые вопросы"}
-                    </motion.h2>
-                </div>
-
-                <div className="space-y-4">
-                    {faqs.map((faq: any, index: number) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="glass-panel rounded-2xl overflow-hidden"
-                        >
-                            <button
-                                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                className="w-full text-left p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
-                            >
-                                <span className="text-lg md:text-xl font-medium text-white pr-8">
-                                    {faq.question[locale]}
-                                </span>
-                                <span className={`p-2 rounded-full border border-white/10 transition-colors ${openIndex === index ? 'bg-indigo-500/20 text-indigo-300' : 'text-muted-foreground'}`}>
-                                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
-                                </span>
-                            </button>
-
-                            <AnimatePresence>
-                                {openIndex === index && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                                    >
-                                        <div className="p-6 pt-0 text-muted-foreground leading-relaxed">
-                                            {faq.answer[locale]}
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
+                      <p className="px-6 pb-6 leading-relaxed text-muted">{item.answer.ru}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
+      </Container>
+    </section>
+  );
+}

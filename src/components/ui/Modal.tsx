@@ -24,11 +24,11 @@ export function Modal({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <Dialog.Content
           className={cn(
-            'fixed left-[50%] top-[50%] z-50 w-full translate-x-[-50%] translate-y-[-50%]',
-            'bg-white rounded-2xl shadow-xl',
+            'fixed left-[50%] top-[50%] z-50 w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%]',
+            'glass-strong rounded-3xl text-foreground shadow-2xl',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
             'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -48,12 +48,12 @@ export function Modal({
             {(title || description) && (
               <div className="mb-6">
                 {title && (
-                  <Dialog.Title className="font-serif text-2xl font-bold text-neutral-900">
+                  <Dialog.Title className="font-display gradient-text text-2xl font-bold">
                     {title}
                   </Dialog.Title>
                 )}
                 {description && (
-                  <Dialog.Description className="mt-2 text-neutral-600">
+                  <Dialog.Description className="mt-2 text-muted">
                     {description}
                   </Dialog.Description>
                 )}
@@ -62,7 +62,7 @@ export function Modal({
 
             {children}
 
-            <Dialog.Close className="absolute right-4 top-4 rounded-full p-2 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <Dialog.Close className="absolute right-4 top-4 rounded-full p-2 text-muted transition-colors hover:bg-white/10 hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
               <X className="h-5 w-5" />
               <span className="sr-only">Close</span>
             </Dialog.Close>

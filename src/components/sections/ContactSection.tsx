@@ -1,106 +1,57 @@
 'use client';
 
-import { useTranslations, useLocale } from 'next-intl';
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { siteConfig } from '@/data/site-config';
-import { Mail, Phone, Instagram, Send, Youtube } from 'lucide-react';
+import { SocialLinks } from '@/components/shared/SocialLinks';
 
 export function ContactSection() {
   const t = useTranslations('contact');
-  const locale = useLocale();
+  const tSocial = useTranslations('social');
 
   return (
-    <section id="contact" className="py-20 md:py-32 relative">
-      <Container>
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-              {t('title')}
-            </h2>
-            <p className="text-xl text-neutral-600 max-w-2xl mx-auto">{t('subtitle')}</p>
-          </div>
-        </ScrollReveal>
+    <section id="contact" className="section-pad relative overflow-hidden">
+      <Container className="max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-14 text-center sm:mb-16"
+        >
+          <span className="eyebrow mb-4">{t('subtitle')}</span>
+          <h2 className="font-display mb-5 text-4xl font-bold tracking-tight sm:text-5xl">
+            <span className="gradient-text">{t('title')}</span>
+          </h2>
+          <p className="text-balance text-lg leading-relaxed text-muted">{t('description')}</p>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <ScrollReveal delay={0.2}>
+        <div className="grid gap-10 md:grid-cols-2 md:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col gap-6"
+          >
             <div>
-              <ContactForm />
+              <h3 className="font-display mb-1 text-xl font-semibold">{tSocial('follow')}</h3>
+              <p className="text-sm text-muted">{tSocial('subtitle')}</p>
             </div>
-          </ScrollReveal>
 
-          {/* Contact Info */}
-          <ScrollReveal delay={0.4}>
-            <div className="space-y-8">
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-neutral-900 mb-6">
-                  {t('or')}
-                </h3>
-                <div className="space-y-4">
-                  <a
-                    href={`mailto:${siteConfig.contact.email}`}
-                    className="flex items-center gap-3 text-neutral-700 hover:text-primary-600 transition-colors"
-                  >
-                    <Mail size={20} className="text-primary-500" />
-                    <span>{siteConfig.contact.email}</span>
-                  </a>
-                  <a
-                    href={`tel:${siteConfig.contact.phone}`}
-                    className="flex items-center gap-3 text-neutral-700 hover:text-primary-600 transition-colors"
-                  >
-                    <Phone size={20} className="text-primary-500" />
-                    <span>{siteConfig.contact.phone}</span>
-                  </a>
-                </div>
-              </div>
+            <SocialLinks variant="pill" />
+          </motion.div>
 
-              <div>
-                <h3 className="font-serif text-xl font-bold text-neutral-900 mb-4">
-                  {t('followMe')}
-                </h3>
-                <div className="flex gap-4">
-                  <a
-                    href={siteConfig.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-neutral-100 text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-300"
-                  >
-                    <Instagram size={24} />
-                  </a>
-                  <a
-                    href={siteConfig.social.telegram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-neutral-100 text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-300"
-                  >
-                    <Send size={24} />
-                  </a>
-                  <a
-                    href={siteConfig.social.youtube}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-neutral-100 text-primary-600 hover:bg-primary-600 hover:text-white transition-all duration-300"
-                  >
-                    <Youtube size={24} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Optional: Map or additional info */}
-              <div className="mt-12 p-6 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl">
-                <p className="text-neutral-700 leading-relaxed italic">
-                  "{locale === 'ru'
-                    ? "Каждое путешествие к себе начинается с первого шага. Свяжитесь со мной, и мы начнем этот путь вместе."
-                    : "Every journey to oneself begins with a first step. Contact me, and we will start this path together."}"
-                </p>
-                <p className="mt-2 font-medium text-neutral-900">
-                  — {locale === 'ru' ? siteConfig.coach.name : siteConfig.coach.nameEn}
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="glass gradient-border rounded-3xl p-6 sm:p-8"
+          >
+            <ContactForm />
+          </motion.div>
         </div>
       </Container>
     </section>

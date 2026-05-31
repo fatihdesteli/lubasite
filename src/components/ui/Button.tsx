@@ -15,21 +15,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         className={cn(
           'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-          'disabled:pointer-events-none disabled:opacity-50',
-          'active:scale-98',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+          'disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97]',
           {
-            // Primary variant
-            'bg-primary-500 text-white hover:bg-primary-600 hover:scale-105 hover:shadow-glow':
+            'bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:brightness-110':
               variant === 'primary',
-            // Secondary variant
-            'bg-secondary-500 text-white hover:bg-secondary-600 hover:scale-105':
+            'glass-strong text-foreground hover:border-primary/50 hover:bg-white/10':
               variant === 'secondary',
-            // Outline variant
-            'border-2 border-primary-500 text-primary-600 hover:bg-primary-50 hover:scale-105':
+            'border border-primary/60 text-foreground hover:bg-primary/10':
               variant === 'outline',
-            // Ghost variant
-            'text-neutral-700 hover:bg-neutral-100 hover:text-primary-600':
+            'text-foreground/80 hover:bg-white/5 hover:text-foreground':
               variant === 'ghost',
           },
           {
@@ -43,7 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && (
           <svg
-            className="animate-spin h-5 w-5"
+            className="h-5 w-5 animate-spin"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

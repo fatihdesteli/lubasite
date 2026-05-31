@@ -18,11 +18,10 @@ export const siteConfig = {
     en: 'your true path to yourself begins with the courage to sound',
   },
   social: {
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/pathtoself',
-    telegram: process.env.NEXT_PUBLIC_TELEGRAM_URL || 'https://t.me/pathtoself',
-    vk: process.env.NEXT_PUBLIC_VK_URL || 'https://vk.com/pathtoself',
-    youtube: process.env.NEXT_PUBLIC_YOUTUBE_URL || 'https://youtube.com/@pathtoself',
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_URL || 'https://wa.me/',
+    instagram: 'https://instagram.com/lubov_strelkova',
+    instagramHandle: '@lubov_strelkova',
+    telegram: 'https://t.me/strelochka_love',
+    telegramHandle: '@strelochka_love',
   },
   contact: {
     email: 'info@pathtoself.com',
@@ -41,24 +40,24 @@ export const siteConfig = {
   methodology: {
     title: { ru: 'Путь к Мастерству', en: 'Path to Mastery' },
     description: {
-      ru: 'Моя методика основана на синтезе классического коучинга, психологии голоса и телесных практик.',
-      en: 'My methodology is based on a synthesis of classical coaching, voice psychology and bodily practices.'
+      ru: 'В основе моей методики лежит синергия ораторского искусства, психологических инструментов и дыхательных техник.',
+      en: 'My methodology is built on the synergy of public speaking, psychological tools and breathing techniques.'
     },
     steps: [
       {
         icon: 'Sparkles',
         title: { ru: 'Осознание', en: 'Awareness' },
         description: {
-          ru: 'Глубинное исследование ваших истинных желаний и ментальных блоков.',
-          en: 'Deep exploration of your true desires and mental blocks.'
+          ru: 'Исследование ваших истинных устремлений и проработка внутренних ограничений.',
+          en: 'Exploring your true aspirations and working through inner limitations.'
         }
       },
       {
         icon: 'Brain',
         title: { ru: 'Трансформация', en: 'Transformation' },
         description: {
-          ru: 'Перепрограммирование ограничивающих убеждений и работа с мышлением.',
-          en: 'Reprogramming limiting beliefs and working with mindset.'
+          ru: 'Путь от ментальных лабиринтов к ясности и свободе самовыражения через голос.',
+          en: 'The path from mental labyrinths to clarity and freedom of self-expression through voice.'
         }
       },
       {

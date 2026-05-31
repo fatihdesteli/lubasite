@@ -1,125 +1,160 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { programs } from '@/data/programs';
-import { Clock, MapPin, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Clock, MapPin, ArrowUpRight, Check } from 'lucide-react';
+import { useState } from 'react';
+import { Modal } from '@/components/ui/Modal';
+import { ContactForm } from '@/components/forms/ContactForm';
 
 export function ProgramsSection() {
   const t = useTranslations('programs');
-  const locale = useLocale() as 'ru' | 'en';
+  const [registerProgram, setRegisterProgram] = useState<string | null>(null);
+  const [detailsProgram, setDetailsProgram] = useState<string | null>(null);
 
-  const handleRegister = (programId: string) => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const formatLabels: Record<string, string> = {
+    online: t('formats.online'),
+    offline: t('formats.offline'),
+    individual: t('formats.individual'),
   };
 
+  const details = programs.find((p) => p.id === detailsProgram);
+
   return (
-    <section id="programs" className="py-32 relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-1/2 left-0 w-full h-[500px] bg-gradient-to-r from-violet-500/10 via-transparent to-teal-500/10 blur-[100px] pointer-events-none" />
-
+    <section id="programs" className="section-pad relative overflow-hidden">
       <Container>
-        <div className="text-center mb-20 relative z-10">
-          <motion.div
-            className="inline-block mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full glass-panel border-violet-500/30 text-violet-300 text-sm font-medium">
-              <Sparkles size={14} className="text-gold-400" />
-              {t('subtitle')}
-            </span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-serif font-bold text-gradient-cosmic mb-6"
-          >
-            {t('title')}
-          </motion.h2>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-14 max-w-3xl text-center sm:mb-20"
+        >
+          <span className="eyebrow mb-4">{t('subtitle')}</span>
+          <h2 className="font-display mb-5 text-4xl font-bold tracking-tight sm:text-5xl">
+            <span className="gradient-text">{t('title')}</span>
+          </h2>
+          <p className="text-balance text-lg leading-relaxed text-muted">{t('description')}</p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {programs.map((program, index) => (
             <motion.div
               key={program.id}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="group relative h-full"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group glass glass-hover gradient-border flex flex-col rounded-3xl p-7"
             >
-              {/* Magic Glow */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-teal-400 rounded-[2.1rem] blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+              <div className="mb-5 flex items-center justify-between">
+                <span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-medium uppercase tracking-wider text-accent-soft">
+                  {program.subtitle.ru}
+                </span>
+                <ArrowUpRight className="h-5 w-5 text-muted transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+              </div>
 
-              {/* Glass Card */}
-              <div className="relative h-full glass-card rounded-[2rem] p-8 overflow-hidden flex flex-col">
+              <h3 className="font-display mb-3 text-2xl font-semibold leading-snug">
+                {program.title.ru}
+              </h3>
+              <p className="mb-6 line-clamp-4 flex-grow text-sm leading-relaxed text-muted">
+                {program.description.ru}
+              </p>
 
-                {/* Format Badge */}
-                <div className="flex items-center justify-between mb-8">
-                  <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-teal-300 text-xs font-medium uppercase tracking-wider">
-                    {program.subtitle[locale]}
-                  </span>
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-violet-500 transition-colors duration-300">
-                    <ArrowRight className="text-white w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+              <div className="mb-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <span className="flex items-center gap-2 text-muted">
+                  <Clock className="h-4 w-4 text-primary" />
+                  {program.duration.ru}
+                </span>
+                <span className="flex items-center gap-2 text-muted">
+                  <MapPin className="h-4 w-4 text-primary" />
+                  {formatLabels[program.format]}
+                </span>
+              </div>
+
+              <div className="mb-7 space-y-2.5">
+                {program.highlights.ru.slice(0, 3).map((highlight, i) => (
+                  <div key={i} className="flex items-start gap-2.5 text-sm">
+                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                    <span className="text-foreground/80">{highlight}</span>
                   </div>
-                </div>
+                ))}
+              </div>
 
-                {/* Content */}
-                <div className="flex-grow">
-                  <h3 className="font-serif text-3xl font-bold text-white mb-4 group-hover:text-violet-300 transition-colors">
-                    {program.title[locale]}
-                  </h3>
-
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {program.description[locale]}
-                  </p>
-
-                  {/* Highlights */}
-                  <ul className="space-y-3 mb-8">
-                    {program.highlights[locale].slice(0, 3).map((highlight, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                        <CheckCircle2 className="w-5 h-5 text-teal-400 flex-shrink-0" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Footer Info */}
-                <div className="mt-auto pt-6 border-t border-white/5 space-y-4">
-                  <div className="flex items-center justify-between text-sm text-gray-400">
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} className="text-violet-400" />
-                      <span>{program.duration[locale]}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin size={16} className="text-teal-400" />
-                      <span>{program.format === 'online' ? t('online.format') : program.format === 'offline' ? t('offline.format') : t('individual.format')}</span>
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={() => handleRegister(program.id)}
-                    className="w-full bg-white/10 hover:bg-white/20 text-white border-none py-6 text-lg group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-indigo-600 transition-all duration-300"
-                  >
-                    {t('register')}
-                  </Button>
-                </div>
+              <div className="mt-auto flex flex-col gap-3 sm:flex-row">
+                <Button
+                  variant="secondary"
+                  className="flex-1"
+                  onClick={() => setDetailsProgram(program.id)}
+                >
+                  {t('learnMore')}
+                </Button>
+                <Button className="flex-1" onClick={() => setRegisterProgram(program.id)}>
+                  {t('register')}
+                </Button>
               </div>
             </motion.div>
           ))}
         </div>
       </Container>
+
+      {/* Details modal */}
+      <Modal
+        open={detailsProgram !== null}
+        onOpenChange={(open) => !open && setDetailsProgram(null)}
+        title={details?.title.ru || ''}
+        size="lg"
+      >
+        {details && (
+          <div className="space-y-5">
+            <span className="eyebrow">{details.subtitle.ru}</span>
+            <p className="leading-relaxed text-muted">{details.description.ru}</p>
+
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <span className="flex items-center gap-2 text-muted">
+                <Clock className="h-4 w-4 text-primary" />
+                {details.duration.ru}
+              </span>
+              <span className="flex items-center gap-2 text-muted">
+                <MapPin className="h-4 w-4 text-primary" />
+                {formatLabels[details.format]}
+              </span>
+            </div>
+
+            <div className="space-y-2.5">
+              {details.highlights.ru.map((h, i) => (
+                <div key={i} className="flex items-start gap-2.5 text-sm">
+                  <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                  <span className="text-foreground/80">{h}</span>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              className="w-full"
+              onClick={() => {
+                setRegisterProgram(details.id);
+                setDetailsProgram(null);
+              }}
+            >
+              {t('register')}
+            </Button>
+          </div>
+        )}
+      </Modal>
+
+      {/* Registration modal */}
+      <Modal
+        open={registerProgram !== null}
+        onOpenChange={(open) => !open && setRegisterProgram(null)}
+        title={programs.find((p) => p.id === registerProgram)?.title.ru || ''}
+        size="lg"
+      >
+        <ContactForm />
+      </Modal>
     </section>
   );
 }

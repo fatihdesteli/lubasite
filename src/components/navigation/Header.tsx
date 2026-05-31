@@ -1,14 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { LanguageSwitcher } from './LanguageSwitcher';
-import { Container } from '@/components/ui/Container';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Container } from '@/components/ui/Container';
+import { SocialLinks } from '@/components/shared/SocialLinks';
+import { Menu, X } from 'lucide-react';
+import { siteConfig } from '@/data/site-config';
 
-const navItems = ['programs', 'videos', 'testimonials', 'articles', 'contact'] as const;
+const navItems = [
+  { key: 'home', href: '#home' },
+  { key: 'methodology', href: '#methodology' },
+  { key: 'programs', href: '#programs' },
+  { key: 'faq', href: '#faq' },
+  { key: 'contact', href: '#contact' },
+];
 
 export function Header() {
   const t = useTranslations('nav');
@@ -16,104 +22,83 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsMobileMenuOpen(false);
-    }
-  };
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent',
-        isScrolled
-          ? 'glass-panel py-2 border-white/10'
-          : 'bg-transparent py-4'
-      )}
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'glass-strong py-3' : 'py-5'
+      }`}
     >
       <Container>
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={cn(
-              "font-serif text-2xl font-bold transition-colors",
-              isScrolled ? "text-gradient-gold" : "text-white"
-            )}
-          >
-            {t('home')}
-          </button>
+        <nav className="flex items-center justify-between">
+          <a href="#home" className="font-display gradient-text text-lg font-bold sm:text-xl">
+            {siteConfig.name}
+          </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="text-white/80 hover:text-white font-medium transition-colors hover:scale-105 active:scale-95 duration-200"
+              <a
+                key={item.key}
+                href={item.href}
+                className="text-sm text-foreground/75 transition-colors hover:text-accent-soft"
               >
-                {t(item)}
-              </button>
+                {t(item.key)}
+              </a>
             ))}
-            <div className="pl-4 border-l border-white/20">
-              <LanguageSwitcher />
-            </div>
-          </nav>
+          </div>
 
-          {/* Mobile Menu Button */}
+          <div className="hidden md:block">
+            <SocialLinks size="sm" />
+          </div>
+
           <button
+            className="md:hidden"
+            aria-label="Menu"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white/90 hover:text-white transition-colors"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
-        </div>
-      </Container>
+        </nav>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-panel border-t border-white/10 overflow-hidden"
-          >
-            <Container>
-              <nav className="py-6 space-y-4">
-                {navItems.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className="block w-full text-left py-3 px-4 rounded-lg text-white/90 hover:bg-white/10 hover:text-white font-medium transition-all"
-                  >
-                    {t(item)}
-                  </button>
-                ))}
-                <div className="pt-4 px-4 border-t border-white/10">
-                  <LanguageSwitcher />
-                </div>
-              </nav>
-            </Container>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="glass-strong mt-4 overflow-hidden rounded-2xl p-4 md:hidden"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-foreground/80 transition-colors hover:bg-white/5 hover:text-accent-soft"
+                >
+                  {t(item.key)}
+                </a>
+              ))}
+              <div className="mt-3 border-t border-white/5 px-4 pt-4">
+                <SocialLinks size="md" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+    </motion.header>
   );
 }
