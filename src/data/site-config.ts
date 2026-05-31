@@ -23,6 +23,19 @@ export const siteConfig = {
     telegram: 'https://t.me/strelochka_love',
     telegramHandle: '@strelochka_love',
   },
+  // Видео-секция. `src` пустой → секция скрыта.
+  // Поддерживается: прямая ссылка на файл (.mp4/.webm/.mov — нативный плеер, без рекламы),
+  // либо ссылка на Vimeo/YouTube (встраивается через iframe).
+  // poster — превью-картинка (необязательно).
+  video: {
+    src: '',
+    poster: '',
+    title: { ru: 'Видео-знакомство', en: 'Video introduction' },
+    description: {
+      ru: 'Несколько слов обо мне и о том, как мы будем работать.',
+      en: 'A few words about me and how we will work together.',
+    },
+  },
   contact: {
     email: 'info@pathtoself.com',
     phone: '+7 (XXX) XXX-XX-XX',

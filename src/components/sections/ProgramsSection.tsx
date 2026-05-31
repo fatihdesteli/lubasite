@@ -5,14 +5,13 @@ import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { programs } from '@/data/programs';
-import { Clock, MapPin, ArrowUpRight, Check } from 'lucide-react';
+import { siteConfig } from '@/data/site-config';
+import { Clock, MapPin, ArrowUpRight, Check, Send } from 'lucide-react';
 import { useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
-import { ContactForm } from '@/components/forms/ContactForm';
 
 export function ProgramsSection() {
   const t = useTranslations('programs');
-  const [registerProgram, setRegisterProgram] = useState<string | null>(null);
   const [detailsProgram, setDetailsProgram] = useState<string | null>(null);
 
   const formatLabels: Record<string, string> = {
@@ -22,6 +21,9 @@ export function ProgramsSection() {
   };
 
   const details = programs.find((p) => p.id === detailsProgram);
+
+  const openTelegram = () =>
+    window.open(siteConfig.social.telegram, '_blank', 'noopener,noreferrer');
 
   return (
     <section id="programs" className="section-pad relative overflow-hidden">
@@ -60,7 +62,7 @@ export function ProgramsSection() {
               <h3 className="font-display mb-3 text-2xl font-semibold leading-snug">
                 {program.title.ru}
               </h3>
-              <p className="mb-6 line-clamp-4 flex-grow text-sm leading-relaxed text-muted">
+              <p className="mb-6 line-clamp-4 grow text-sm leading-relaxed text-muted">
                 {program.description.ru}
               </p>
 
@@ -78,7 +80,7 @@ export function ProgramsSection() {
               <div className="mb-7 space-y-2.5">
                 {program.highlights.ru.slice(0, 3).map((highlight, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-sm">
-                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                     <span className="text-foreground/80">{highlight}</span>
                   </div>
                 ))}
@@ -92,7 +94,7 @@ export function ProgramsSection() {
                 >
                   {t('learnMore')}
                 </Button>
-                <Button className="flex-1" onClick={() => setRegisterProgram(program.id)}>
+                <Button className="flex-1" onClick={openTelegram}>
                   {t('register')}
                 </Button>
               </div>
@@ -127,33 +129,18 @@ export function ProgramsSection() {
             <div className="space-y-2.5">
               {details.highlights.ru.map((h, i) => (
                 <div key={i} className="flex items-start gap-2.5 text-sm">
-                  <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-accent" />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   <span className="text-foreground/80">{h}</span>
                 </div>
               ))}
             </div>
 
-            <Button
-              className="w-full"
-              onClick={() => {
-                setRegisterProgram(details.id);
-                setDetailsProgram(null);
-              }}
-            >
+            <Button className="w-full gap-2" onClick={openTelegram}>
+              <Send className="h-5 w-5" />
               {t('register')}
             </Button>
           </div>
         )}
-      </Modal>
-
-      {/* Registration modal */}
-      <Modal
-        open={registerProgram !== null}
-        onOpenChange={(open) => !open && setRegisterProgram(null)}
-        title={programs.find((p) => p.id === registerProgram)?.title.ru || ''}
-        size="lg"
-      >
-        <ContactForm />
       </Modal>
     </section>
   );

@@ -1,80 +1,84 @@
 'use client';
 
-import { useState } from 'react';
-import { useTranslations, useLocale } from 'next-intl';
-import { ScrollReveal } from '@/components/animations/ScrollReveal';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/Container';
-import { Modal } from '@/components/ui/Modal';
-import { videos } from '@/data/videos';
-import { Play } from 'lucide-react';
+import { siteConfig } from '@/data/site-config';
 
-// Helper to convert YouTube URL to embed URL
-function getYouTubeEmbedUrl(url: string): string {
-  const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
-  return `https://www.youtube.com/embed/${videoId}`;
+function getEmbedUrl(url: string): string | null {
+  // YouTube
+  const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
+  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}`;
+  // Vimeo
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
 }
 
+const isFile = (url: string) => /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(url);
+
 export function VideoSection() {
-  const t = useTranslations('videos');
-  const locale = useLocale() as 'ru' | 'en';
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const { video } = siteConfig;
+  if (!video.src) return null;
+
+  const embedUrl = getEmbedUrl(video.src);
 
   return (
-    <section id="videos" className="py-20 md:py-32 bg-gradient-to-br from-primary-50/30 to-secondary-50/30">
-      <Container>
-        <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-              {t('title')}
-            </h2>
-            <p className="text-2xl text-neutral-700 max-w-3xl mx-auto">{t('subtitle')}</p>
-          </div>
-        </ScrollReveal>
+    <section id="video" className="section-pad relative overflow-hidden">
+      <Container className="max-w-4xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-10 max-w-2xl text-center"
+        >
+          <h2 className="font-display mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            <span className="gradient-text">{video.title.ru}</span>
+          </h2>
+          {video.description.ru && (
+            <p className="text-balance text-lg leading-relaxed text-muted">
+              {video.description.ru}
+            </p>
+          )}
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {videos.map((video, index) => (
-            <ScrollReveal key={video.id} delay={index * 0.1}>
-              <button
-                onClick={() => setSelectedVideo(video.url)}
-                className="group relative aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="glass gradient-border overflow-hidden rounded-3xl p-2"
+        >
+          <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black">
+            {isFile(video.src) ? (
+              <video
+                className="h-full w-full"
+                controls
+                preload="metadata"
+                playsInline
+                poster={video.poster || undefined}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Play className="text-primary-600 ml-1" size={32} fill="currentColor" />
-                  </div>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <p className="text-white font-medium text-sm">{video.title[locale]}</p>
-                </div>
-                <div className="absolute inset-0 bg-neutral-200">
-                  <div className="w-full h-full flex items-center justify-center text-neutral-400">
-                    <Play size={48} />
-                  </div>
-                </div>
-              </button>
-            </ScrollReveal>
-          ))}
-        </div>
-      </Container>
-
-      {/* Video Modal */}
-      <Modal
-        open={!!selectedVideo}
-        onOpenChange={() => setSelectedVideo(null)}
-        size="xl"
-      >
-        {selectedVideo && (
-          <div className="aspect-video w-full">
-            <iframe
-              src={getYouTubeEmbedUrl(selectedVideo)}
-              className="w-full h-full rounded-lg"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+                <source src={video.src} />
+              </video>
+            ) : embedUrl ? (
+              <iframe
+                src={embedUrl}
+                className="h-full w-full"
+                title={video.title.ru}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowFullScreen
+              />
+            ) : (
+              <iframe
+                src={video.src}
+                className="h-full w-full"
+                title={video.title.ru}
+                allowFullScreen
+              />
+            )}
           </div>
-        )}
-      </Modal>
+        </motion.div>
+      </Container>
     </section>
   );
 }

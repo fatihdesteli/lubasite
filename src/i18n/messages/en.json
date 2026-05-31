@@ -29,17 +29,8 @@
   "contact": {
     "subtitle": "Contact",
     "title": "Get in touch with me",
-    "description": "Have questions? Write to me — I will reply personally and help you choose your path.",
-    "form": {
-      "name": "Your Name",
-      "email": "Email",
-      "phone": "Phone",
-      "message": "Message",
-      "submit": "Send",
-      "sending": "Sending...",
-      "success": "Thank you! Your message has been sent.",
-      "error": "An error occurred. Please try again."
-    }
+    "description": "Have questions? Write to me directly — I will reply personally and help you choose your path.",
+    "writeTelegram": "Message on Telegram"
   },
   "social": {
     "follow": "Follow me",
