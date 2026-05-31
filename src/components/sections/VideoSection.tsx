@@ -24,7 +24,7 @@ export function VideoSection() {
   const isPortrait = video.orientation === 'portrait';
 
   return (
-    <section id="video" className="section-pad relative overflow-hidden">
+    <section id="video" className="relative overflow-hidden pb-16 pt-4 sm:pb-24">
       <Container className={isPortrait ? 'max-w-2xl' : 'max-w-4xl'}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
