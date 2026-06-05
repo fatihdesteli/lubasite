@@ -5,12 +5,12 @@ export const siteConfig = {
     name: 'Любовь Юрьевна Самойленко',
     nameEn: 'Lyubov Yurievna Samoilenko',
     title: {
-      ru: 'Коуч личностного развития',
-      en: 'Personal Development Coach',
+      ru: 'Педагог по технике речи',
+      en: 'Speech technique teacher',
     },
     bio: {
-      ru: 'Профессиональный коуч с многолетним опытом помощи людям в обретении уверенности и развитии навыков самовыражения',
-      en: 'Professional coach with years of experience helping people gain confidence and develop self-expression skills',
+      ru: 'Педагог по технике речи с многолетним опытом помощи людям в обретении уверенности и развитии навыков самовыражения',
+      en: 'Speech technique teacher with years of experience helping people gain confidence and develop self-expression skills',
     },
   },
   tagline: {
@@ -18,8 +18,8 @@ export const siteConfig = {
     en: 'your true path to yourself begins with the courage to sound',
   },
   social: {
-    instagram: 'https://instagram.com/lubov_strelkova',
-    instagramHandle: '@lubov_strelkova',
+    instagram: 'https://instagram.com/strelochka_love',
+    instagramHandle: '@strelochka_love',
     telegram: 'https://t.me/strelochka_love',
     telegramHandle: '@strelochka_love',
   },
@@ -44,12 +44,12 @@ export const siteConfig = {
   },
   seo: {
     title: {
-      ru: 'Путь к себе | Коучинг личностного развития',
-      en: 'Path to Self | Personal Development Coaching',
+      ru: 'Путь к себе | Техника речи и ораторское искусство',
+      en: 'Path to Self | Speech Technique & Public Speaking',
     },
     description: {
-      ru: 'Профессиональный коучинг личностного развития с Любовью Юрьевной Самойленко. Онлайн и офлайн курсы по развитию навыков самовыражения и уверенности в общении.',
-      en: 'Professional personal development coaching with Lyubov Yurievna Samoilenko. Online and offline courses for developing self-expression and communication confidence.',
+      ru: 'Занятия по технике речи, голосу и ораторскому искусству с Любовью Юрьевной Самойленко. Онлайн и офлайн курсы по развитию навыков самовыражения и уверенности в общении.',
+      en: 'Speech technique, voice and public speaking classes with Lyubov Yurievna Samoilenko. Online and offline courses for developing self-expression and communication confidence.',
     },
   },
   methodology: {
@@ -97,10 +97,10 @@ export const siteConfig = {
     title: { ru: 'Вопросы и Ответы', en: 'FAQ' },
     items: [
       {
-        question: { ru: 'Как проходит первая консультация?', en: 'How does the first consultation go?' },
+        question: { ru: 'Консультация. Как проходит?', en: 'The consultation. How does it work?' },
         answer: {
-          ru: 'Первая встреча (30-45 минут) посвящена знакомству. Мы обсуждаем ваш запрос, я рассказываю о формате работы, и мы определяем, подходим ли мы друг другу.',
-          en: 'The first meeting (30-45 minutes) is dedicated to getting to know each other. We discuss your request, I talk about the format of work, and we determine if we are a good fit.'
+          ru: 'Консультация перед занятиями проходит в формате онлайн (до 30 минут). На основе тестовых заданий выбираем формат, обсуждаем ваш запрос, ставим цели.',
+          en: 'The pre-course consultation takes place online (up to 30 minutes). Based on test assignments, we choose the format, discuss your request and set goals.'
         }
       },
       {
@@ -111,10 +111,10 @@ export const siteConfig = {
         }
       },
       {
-        question: { ru: 'Сколько длится программа коучинга?', en: 'How long is the coaching program?' },
+        question: { ru: 'Сколько длится программа?', en: 'How long is the program?' },
         answer: {
-          ru: 'Длительность зависит от вашего запроса. Базовый курс — 3 месяца (12 сессий). Это оптимальное время для закрепления устойчивых изменений.',
-          en: 'Duration depends on your request. The basic course is 3 months (12 sessions). This is the optimal time to consolidate sustainable changes.'
+          ru: 'Длительность зависит от формата и вашего запроса. Онлайн-курс — 4 недели, групповой интенсив — 6 занятий, индивидуальные занятия — по договорённости.',
+          en: 'Duration depends on the format and your request. The online course is 4 weeks, the group intensive is 6 sessions, and individual sessions are by arrangement.'
         }
       }
     ]

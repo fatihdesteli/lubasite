@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const title = locale === 'ru' ? 'Путь к себе' : 'Path to Self';
   const description = locale === 'ru'
-    ? 'Профессиональный коучинг личностного развития с Любовью Юрьевной Самойленко'
-    : 'Professional personal development coaching with Lyubov Yurievna Samoilenko';
+    ? 'Занятия по технике речи, голосу и ораторскому искусству с Любовью Юрьевной Самойленко'
+    : 'Speech technique, voice and public speaking classes with Lyubov Yurievna Samoilenko';
 
   return {
     title: {
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     description,
     keywords: locale === 'ru'
-      ? ['коучинг', 'личностное развитие', 'самореализация', 'ораторское искусство']
-      : ['coaching', 'personal development', 'self-realization', 'public speaking'],
+      ? ['техника речи', 'ораторское искусство', 'постановка голоса', 'публичные выступления', 'дыхательные практики']
+      : ['speech technique', 'public speaking', 'voice training', 'breathing practices', 'self-expression'],
     authors: [{ name: 'Любовь Юрьевна Самойленко' }],
     openGraph: {
       type: 'website',
