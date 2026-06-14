@@ -25,12 +25,10 @@ export const programs: Program[] = [
       ru: [
         'Практические упражнения на каждый день',
         '2 онлайн встречи в формате Live',
-        'Вебинар по этикету',
       ],
       en: [
         'Daily practical exercises',
         '2 online Live sessions',
-        'Webinar on etiquette',
       ],
     },
     image: '/images/programs/online-course.jpg',
